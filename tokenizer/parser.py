@@ -1,7 +1,7 @@
 import os
 
 datasetPath = "../dataset/"
-f = open(datasetPath+'first_100.txt', 'r')
+f = open(datasetPath+'first_1000.tsv', 'r')
 
 messages = []
 polarity = []
