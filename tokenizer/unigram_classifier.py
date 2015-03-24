@@ -16,6 +16,9 @@ dict_final_tokens = []
 
 token_tweet_list = fp.readlines()
 polarity = fp2.readlines()
+for i in range(0,len(polarity)):
+	polarity[i]=polarity[i][:-1]
+#print polarity
 
 len_training = len(token_tweet_list)
 
@@ -48,3 +51,18 @@ for tweet in token_tweet_list:
 #print dict_final_tokens
 
 #print "The final matrix is:\t", unigram_matrix
+
+from sklearn import svm
+clf = svm.LinearSVC()
+clf.fit(unigram_matrix,polarity)
+while(1):
+	print "Enter input : "
+	tweet=raw_input()
+	tweet = tweet.split(' ')
+	pred_matrix = [0]*len(dict_final_tokens)
+	for token in tweet:
+		token=token.lower()
+		if token in dict_final_tokens:
+			indx = dict_final_tokens.index(token)
+                        pred_matrix[indx] = 1
+	print clf.predict(pred_matrix)[0]
