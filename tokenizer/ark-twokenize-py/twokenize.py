@@ -313,7 +313,10 @@ def main():
         if(len(tokens) > 0):
             fout.write(tokens[0])
         for i in range(1,len(tokens)):
-            fout.write(' '+tokens[i].encode('utf8'))
+		try:
+        		fout.write(' '+tokens[i].encode('utf8'))
+		except UnicodeDecodeError:
+			fout.write(' '+tokens[i])
         fout.write('\n')
     f.close()
     fout.close()
