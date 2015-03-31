@@ -32,6 +32,8 @@ if(os.path.isfile(fname)):
 	os.remove(fname)
 f=open(fname, 'a')
 for i in messages:
+	if(i == 'Not Available'):
+		continue
 	f.write(i+'\n')
 f.close()
 
@@ -39,6 +41,8 @@ fname = './polarity'
 if(os.path.isfile(fname)):
 	os.remove(fname)
 f=open(fname, 'a')
-for i in polarity:
-	f.write(i+'\n')
+for i in range(0,len(polarity)):
+	if(messages[i] == 'Not Available'):
+		continue
+	f.write(polarity[i]+'\n')
 f.close()

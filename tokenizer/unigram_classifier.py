@@ -80,8 +80,9 @@ for i in range(0,len(test_polarity)):
 f.close()
 fname = './test_1000_tokens'
 f = open(fname,'r')
-tweetcount=0
-correct=wrong=0
+pred_polarity = []
+#tweetcount=0
+#correct=wrong=0
 for tweet in f:
 	tweet=tweet[:-1]
         tweet = tweet.split(' ')
@@ -91,10 +92,20 @@ for tweet in f:
                 if token in dict_final_tokens:
                         indx = dict_final_tokens.index(token)
                         pred_matrix[indx] = 1
-        if(clf.predict(pred_matrix)[0] == test_polarity[tweetcount]):
-		correct+=1
-	else:
-		wrong+=1
-	tweetcount+=1
+	pred_polarity.append(clf.predict(pred_matrix)[0])
+#       if(clf.predict(pred_matrix)[0] == test_polarity[tweetcount]):
+#		correct+=1
+#	else:
+#		wrong+=1
+#	tweetcount+=1
 f.close()
-print correct, wrong
+#print correct, wrong
+
+from sklearn.metrics import precision_recall_fscore_support
+print precision_recall_fscore_support(test_polarity, pred_polarity)
+print
+print precision_recall_fscore_support(test_polarity, pred_polarity, average='macro')
+print
+print precision_recall_fscore_support(test_polarity, pred_polarity, average='micro')
+print
+print precision_recall_fscore_support(test_polarity, pred_polarity, average='weighted')
